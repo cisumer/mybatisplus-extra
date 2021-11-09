@@ -4,7 +4,7 @@
 
 	<groupId>io.github.cisumer</groupId>
 	<artifactId>mybatisplus-extra</artifactId>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2</version>
 	<packaging>jar</packaging>
 	<name>mybatisplus-extra</name>
 	<description>Mybatisplus 扩展增强包.</description>
