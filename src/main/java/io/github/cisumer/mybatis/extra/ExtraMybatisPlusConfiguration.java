@@ -3,8 +3,6 @@ package io.github.cisumer.mybatis.extra;
 import java.util.List;
 
 import org.apache.ibatis.reflection.MetaObject;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -12,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusPropertiesCustomizer;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 
 import io.github.cisumer.mybatis.extra.build.ResultMapParser;
@@ -39,18 +39,18 @@ public class ExtraMybatisPlusConfiguration {
 	 * 
 	 * @return
 	 */
+		
 	@Configuration
 	@ConditionalOnProperty(name = "mybatis-plus.result-map.enabled", havingValue = "true", matchIfMissing = true)
-	class ParseResultMapConfiguration implements InitializingBean{
-		@Autowired SqlSessionFactory factory;
+	class ParseResultMapConfiguration implements MybatisPlusPropertiesCustomizer{
 		@Bean
-		ResultMapParser resultMapParser(){
-			return new ResultMapParser(factory.getConfiguration());
+		ResultMapParser parser(){
+			return new ResultMapParser();
 		}
-
+		
 		@Override
-		public void afterPropertiesSet() throws Exception {
-			resultMapParser().scan();
+		public void customize(MybatisPlusProperties properties) {
+			parser().setProperties(properties).scan();
 		}
 	}
 	/**

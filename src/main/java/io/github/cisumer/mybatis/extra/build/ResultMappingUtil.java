@@ -25,9 +25,9 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 
@@ -44,10 +44,9 @@ public final class ResultMappingUtil {
 	protected static GlobalConfig.DbConfig dbConfig;
 	
 	
-	protected static void setConfiguration(Configuration configuration){
-		ResultMappingUtil.configuration=configuration;
-		globalConfig=GlobalConfigUtils.getGlobalConfig(configuration);
-        dbConfig = globalConfig.getDbConfig();
+	protected static void setConfiguration(MybatisPlusProperties properties){
+		ResultMappingUtil.configuration=properties.getConfiguration();
+        dbConfig = properties.getGlobalConfig().getDbConfig();
 	}
 	
 	/**

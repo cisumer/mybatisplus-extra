@@ -19,8 +19,10 @@ import org.apache.ibatis.session.Configuration;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 
 import io.github.cisumer.mybatis.extra.annotations.QueryFor;
@@ -42,17 +44,18 @@ public class ResultMapParser {
 	private String[] locations;
 	private Configuration configuration;
 	
-	public ResultMapParser(Configuration configuration){
-		this.configuration=configuration;
-		ResultMappingUtil.setConfiguration(configuration);
+	public ResultMapParser setProperties(MybatisPlusProperties properties){
+		this.configuration=properties.getConfiguration();
+		ResultMappingUtil.setConfiguration(properties);
+		return this;
 	}
-	
 	/**
 	 * 扫描类路径
 	 * @param locations
 	 * @throws  
 	 */
 	public void scan(){
+		Assert.notNull(configuration,"未初始化！");
 		LogFactory.getLog("io.github.cisumer.mybatisplus-extra")
 				.debug("解析自定义ResultMap注解:[" + String.join(",", locations) + "]");
 		
