@@ -5,7 +5,7 @@
 	<dependency>
 		<groupId>io.github.cisumer</groupId>
   		<artifactId>mybatisplus-extra</artifactId>
-  		<version>0.1</version>
+  		<version>0.2</version>
 	</dependency>
 ```
 2. 提供注解@ResultMap、@QueryFor用于支持在实体类上实现@Result注解的功能
